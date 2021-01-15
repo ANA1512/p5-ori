@@ -1,113 +1,57 @@
-console.log("salut");
+/*********CONNECTION API**************/
 
-/*****  Connection avec l'API caméras ***/
-
-    
-		
-        function allCamera(){
-
-
-		 let request = new XMLHttpRequest();
-		
-		
-		 request.open("GET", "http://localhost:3000/api/cameras");
+    const apiUrl = fetch('http://localhost:3000/api/cameras/')
          
-         request.onload= function() {
+    apiUrl.then(async(responseData)=>{
+        console.log(responseData);
 
-         	if(this.status=== 200){
+        const response = await responseData.json();
+        console.log(response);
+        
+        
+        try{
+
+        const cameraImg= response[0].imageUrl;
+        console.log(cameraImg);
 
 
-          const allCamerasInfos = JSON.parse(request.responseText);
+        }catch(err){
+          
+          console.log(error);
 
-          //alert(allCamerasInfos[1].name);
+        }
 
-          console.log(allCamerasInfos);
+ /* Home Page build*/
+
+	response.forEach(function(responses){ 
+    let liste = document.getElementById("test");
+	let imgProd = document.createElement("img");
+	let nameProd = document.createElement("h2");
+	let description = document.createElement("p");
+	let priceProd = document.createElement("p");
 
 
-         	}else{
+	imgProd.setAttribute("src",responses.imageUrl);
+	nameProd.innerHTML= responses.name;
+	description.innerHTML= responses.description;
+	priceProd.innerHTML= responses.price;
 
-         		console.log ("La requête n'a pas été envoyé");
-         	}
 
-        };
+	liste.appendChild(imgProd);
+	liste.appendChild(nameProd);
+	liste.appendChild(priceProd);
+	liste.appendChild(description);
+
+  
 	
-    request.send();
-
-      };
-
-      /** Appel de ma fonction**/
-
-      //allCamera();
-     /*************************/
-    
-    
-    function cameraStructs(){
-
-    
-    const cameraStructs = allCamera();
-
-	cameraStructs.forEach(function(cameraStruct){
-
-       //console.log(cameraStruct);
-
-   });
-	};
-         
-
-console.log(allCamera);
-
-		
-
-/******  structure la page index HTML ****/ 
-
-
-// Boucle FOR EACH pour la création de chaque produit sur HTML***
-
-//display 
-
-//let allProductSell = document.getElementById("products"); 
-
-//  Création des balises
-
-/*
-
-let articlePart = document.createElement("article");
-let partProd = document.createElement("div");
-let imgProd= document.createElement("img");
-let nameProd = document.createElement("h3");
-let priceProd = document.createElement("p");
-let linkPageProd= document.createElement("a");
-
+  })
  
-
-// Ajout des attributs 
-
-//partProd.setAttribute("class","product_part")
-imgProd.setAttribute("src","#" );
-nameProd.setAttribute("class"," product_name");
-priceProd.setAttribute("class", "product_price")
-linkPageProd.setAttribute("href", 'page_product.html');
-
-
-//  Ajout du texte dans la page HTML
-
-imgProd.innerHTML ="mon image";
-nameProd.innerHTML = " nom du produit";
-priceProd.innerHTML = "prix";
-linkPageProd.innerHTML ="#";
-
-// Ajout des éléments dans la page HTML 
-
-allProductSell.appendChild(nameProd);
-allProductSell.appendChild(priceProd);
-allProductSell.appendChild(imgProd);
-allProductSell.appendChild(linkPageProd);
-
-
-//  Structure de la page PRODUCT*/
+ });
 
 
 
 
+  
 
+    
 
