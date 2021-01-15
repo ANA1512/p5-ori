@@ -27,26 +27,30 @@
     let liste = document.getElementById("test");
 	let imgProd = document.createElement("img");
 	let nameProd = document.createElement("h2");
-	let description = document.createElement("p");
+	let detailProd = document.createElement("a");
 	let priceProd = document.createElement("p");
 
 
+
 	imgProd.setAttribute("src",responses.imageUrl);
+	detailProd.setAttribute("href", "product_page.html");
+	
 	nameProd.innerHTML= responses.name;
-	description.innerHTML= responses.description;
-	priceProd.innerHTML= responses.price;
+	detailProd.innerHTML="En Savoir Plus";
+	priceProd.innerHTML= responses.price +" "+"€";
 
 
 	liste.appendChild(imgProd);
 	liste.appendChild(nameProd);
 	liste.appendChild(priceProd);
-	liste.appendChild(description);
+	liste.appendChild(detailProd);
 
   
 	
   })
  
  });
+
 
 
 
