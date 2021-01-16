@@ -29,15 +29,20 @@
 	let nameProd = document.createElement("h2");
 	let detailProd = document.createElement("a");
 	let priceProd = document.createElement("p");
+	
+	
 
 
 
 	imgProd.setAttribute("src",responses.imageUrl);
-	detailProd.setAttribute("href", "product_page.html");
+	//redirection to Page Product
+	detailProd.setAttribute("href", "product_page.html?id=" + responses._id);
+
 	
 	nameProd.innerHTML= responses.name;
 	detailProd.innerHTML="En Savoir Plus";
 	priceProd.innerHTML= responses.price +" "+"€";
+	
 
 
 	liste.appendChild(imgProd);
@@ -51,11 +56,26 @@
  
  });
 
+/*************PRODUCT PAGE****************/
 
 
+
+
+	let product= document.getElementById("product_select");
+  	let prodImg =document.createElement("img");
+    let prodName =document.createElement("h2");
+    let prodDescription= document.createElement("p");
+    let prodPrice= document.createElement("p");
+
+
+
+
+
+  //imgProd.setAttribute("src",responses.imageUrl);
+
+   product.appendChild(prodImg);
+   product.appendChild(prodName);
+   product.appendChild(prodPrice);
 
 
   
-
-    
-
