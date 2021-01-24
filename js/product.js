@@ -5,7 +5,10 @@
   idCameras= location.search.substring(4); // just the number
   console.log(idCameras);
  
+/***** Basket's buyer to add products***/
 
+let basket=[];
+let inBasket= localStorage.setItem("InBasket", JSON.stringify(basket));
 
 /******API FECTH****/
 const apiUrl = fetch('http://localhost:3000/api/cameras/')
@@ -68,14 +71,22 @@ const apiUrl = fetch('http://localhost:3000/api/cameras/')
         let btn = document.getElementById("btn");
         btn.innerHTML="Ajouter au panier";
         
+        
+        
         btn.addEventListener('click', addbasket);
 
-        function addbasket(){
+            function addbasket(){
 
-        document.location.href ="basket_page.html?id="+ response[i]._id +"?name=" + response[i].name +"?price="+response[i].price;
-       
-        }
-          
+        
+                //Saving product in buyer's basket
+                localStorage.setItem("InBasket",JSON.stringify(response[i]));
+        
+                //redirect 
+                document.location.href="basket_page.html?id="+ response[i]._id +"?name=" + response[i].name +"?price="+response[i].price;
+      
+        };
+    
+        
         // Console message
         console.log("you are on this product:"+ " " + response[i].name);
 
@@ -85,7 +96,7 @@ const apiUrl = fetch('http://localhost:3000/api/cameras/')
           }
 
      };
-     
+      
 });
 
         
