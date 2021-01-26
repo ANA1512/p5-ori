@@ -4,13 +4,10 @@
   idCameras:"";
   idCameras= location.search.substring(4); // just the number
   console.log(idCameras);
- 
-/***** Basket's buyer to add products***/
-
-let basket=[];
-let inBasket= localStorage.setItem("InBasket", JSON.stringify(basket));
-
+  
 /******API FECTH****/
+
+
 const apiUrl = fetch('http://localhost:3000/api/cameras/')
         
     apiUrl.then(async(responseData)=>{
@@ -68,39 +65,66 @@ const apiUrl = fetch('http://localhost:3000/api/cameras/')
 
         /*Redirect button to basket page*/
 
+     
         let btn = document.getElementById("btn");
         btn.innerHTML="Ajouter au panier";
-        
-        
-        
-        btn.addEventListener('click', addbasket);
 
-            function addbasket(){
+
+        /*Add  and save buyer basket into localStorage*/
+       
+        let button=btn.addEventListener("click", save);
+
+                function save(){
+
+                    if(localStorage.getItem("data")==null){
+
+                        localStorage.setItem("data",'[]');
+                      
+                    }
+
+                    let old =JSON.parse(localStorage.getItem("data"));
+                    old.push(response[i].name);
+                    
+
+                    localStorage.setItem('data',JSON.stringify(old));
+                    
+
+                    //redirect
+                    location.href="basket_page.html?id="+ response[i]._id +"?name=" + response[i].name +"?price="+response[i].price;
+                    
+                    
+                };
+
+         
+               /* Console message Intro prod*/
+                 console.log("you are on this product:"+ " " + response[i].name);
+
 
         
-                //Saving product in buyer's basket
-                localStorage.setItem("InBasket",JSON.stringify(response[i]));
-        
-                //redirect 
-                document.location.href="basket_page.html?id="+ response[i]._id +"?name=" + response[i].name +"?price="+response[i].price;
-      
-        };
+
     
-        
-        // Console message
-        console.log("you are on this product:"+ " " + response[i].name);
-
-          }else{
-
-             console.log ('Other products page not laoded');
-          }
-
-     };
-      
-});
+     }
+  
+    };
 
         
+    }); 
  
+
+
+  
+
+
+
+
+
+
+            
+    
+
+     
+
+
 
 
 
