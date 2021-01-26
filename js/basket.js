@@ -1,6 +1,8 @@
 idCameras:"";
   idCameras= location.search.substring(4); // just the number
   console.log(idCameras);
+ 
+
 
 
 /******API FECTH****/
@@ -12,14 +14,48 @@ const apiUrl = fetch('http://localhost:3000/api/cameras/')
         const response = await responseData.json();
         console.log(response);
 
+       
+       
+        /*** product from localStorage***/
+        function displayData(){
 
+        let test= document.getElementById("test");
+   
+        console.log(JSON.parse(localStorage.getItem('InBasket')));
+        console.log(localStorage);
+       
+       if(localStorage.getItem('InBasket')){
+        let {name,imageUrl,price}=JSON.parse(localStorage.getItem('InBasket'));
+        test.innerHTML=` 
+          <p>${name}</p>
+          <p>${price}</p>
+          <input  type="number" value="1" id="quantite" onclick="multiply()">
+          
+       `;
+
+        }
+        
+
+       
+
+
+        }
+
+        displayData();
+      
+  
 });
 
 
 
+ 
 
 
-/**************PANIER*****************/
+
+
+
+
+/**************PANIER****************
 
 
     let suppCart = document.getElementById("retirer");
@@ -28,7 +64,7 @@ const apiUrl = fetch('http://localhost:3000/api/cameras/')
 
 /* selection article dans le panier*/
 
-/*multiplier la quantité par le prix sur un article*/
+/*multiplier la quantité par le prix sur un article
 
 
 function multiply(){
@@ -44,7 +80,7 @@ function multiply(){
     }
 
 
-/* supprimer ma cart du panier*/
+/* supprimer ma cart du panier
 
 
 let quantite= document.getElementById("quantite");
