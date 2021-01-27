@@ -2,9 +2,6 @@ idCameras:"";
   idCameras= location.search.substring(4); // just the number
   console.log(idCameras);
  
-
-
-
 /******API FECTH****/
 const apiUrl = fetch('http://localhost:3000/api/cameras/')
         
@@ -13,90 +10,52 @@ const apiUrl = fetch('http://localhost:3000/api/cameras/')
 
         const response = await responseData.json();
         console.log(response);
-
-       
-       
-        /*** product from localStorage***/
-        function displayData(){
-
-        let test= document.getElementById("test");
-   
-        console.log(JSON.parse(localStorage.getItem('InBasket')));
-        console.log(localStorage);
-       
-       if(localStorage.getItem('InBasket')){
-        let {name,imageUrl,price}=JSON.parse(localStorage.getItem('InBasket'));
-        test.innerHTML=` 
-          <p>${name}</p>
-          <p>${price}</p>
-          <input  type="number" value="1" id="quantite" onclick="multiply()">
-          
-       `;
-
-        }
-        
-
-       
-
-
-        }
-
-        displayData();
-      
-  
-});
-
-
-
  
+   
+   }); 
+
+     function display(){ 
+
+        //position dans HTML ok
+        let dispOutput= document.getElementById('test'); 
+        
+        //number of data in LocalStorage
+        console.log(JSON.parse(localStorage.getItem('data')));
+        
+        //loops to get every item on localStorage to html
+        for(let i=0; i<localStorage.getItem('data').length; i++){ 
+
+        let localBasket= JSON.parse(localStorage.getItem('data'));
+        
+         //HTML tag 
+         let name= document.createElement('p');
+         let price = document.createElement('p');
+         let imgProd = document.createElement('img');
+         let quantity= document.createElement('input');
+
+         //add attribute
+         imgProd.setAttribute("src", localBasket[i].imageUrl);
+         quantity.setAttribute("type", "number");
+         quantity.setAttribute("value", 1);
+         quantity.setAttribute("id","quantity");
+
+         //add tag
+         dispOutput.appendChild(name);
+         dispOutput.appendChild(price);
+         dispOutput.appendChild(quantity);
+
+
+         //tag content
+         name.innerHTML=localBasket[i].name;
+         price.innerHTML=localBasket[i].price;         
+  
+     } 
+  
+  }; 
+
+display();
 
 
 
-
-
-
-/**************PANIER****************
-
-
-    let suppCart = document.getElementById("retirer");
-    let resultat= document.getElementById("total");
-
-
-/* selection article dans le panier*/
-
-/*multiplier la quantité par le prix sur un article
-
-
-function multiply(){
-
-
-    let nombreUn = document.getElementById("prix").value;
-    let nombreDeux= document.getElementById("quantite").value;
-
-    //let result=(Number(parseInt(a))*Number(parseInt(b));
-
-    resultat.innerHTML="total:" +  +(Number(nombreUn)*Number(nombreDeux)) + "€";
-
-    }
-
-
-/* supprimer ma cart du panier
-
-
-let quantite= document.getElementById("quantite");
-let input= document.querySelector("input");
-let prix= document.getElementById("prix");
-//let resultat=document.getElementById("total");
-
-    suppCart.addEventListener('click',suppression);
-
-    function suppression(){
-
-    suppCart.parentElement.parentElement.remove();
-    resultat.remove();
-
-    }
-
-
-/**************FORMULAIRE***********/
+  
 
