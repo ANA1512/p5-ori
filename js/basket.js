@@ -1,39 +1,136 @@
 
+// total all page
 let totalAllProd = document.getElementById("total");
-let total =0;
+let total=[];
+total =0;
+
+//total unit price
+let totalUnit= document.getElementById("totalUnit");
+
+
+// suppress buton
 let buttonSup = document.getElementById("supprimer");
-//let quantity= document.getElementById("quantite").value;
+let itemsCart =document.getElementById("itemsCart");
+
+/*********************************************************/
+let localBasket=  JSON.parse(localStorage.getItem('data'));
+console.log('contenu panier', localBasket);
+
+console.log('localBasket', localBasket);
 
 
-async function display(){ 
+// init new basket
+let editedBasket = []   
+let index = {};
 
-         let localBasket= await JSON.parse(localStorage.getItem('data'));
-         console.log(localBasket);
-         let itemsdisplay= document.getElementById("items");
-        
-         itemsdisplay.innerHTML =''
+//ADD quantity each click on product
+localBasket.forEach(element => {
+ addQuantity(element);
 
-         localBasket.forEach((items,index)=>{ 
-          itemsdisplay.innerHTML += `  
+} );
+// New basket content
+console.log('editedBasket', editedBasket);
 
-          <table class="table">
-                    <tbody>      
-                        <tr>
-                            <td>${localBasket[index].name}</td>
-                            <td>${localBasket[index].imageUrl}</td>
-                            <td>${localBasket[index].price}</td>
-                            <td><input  type="number" value="1" id="quantite" ></td>
-                            <td><button id="supprimer" onclick= "supprimer('${localBasket[index].name}')">SUPPRIMER</button></td>
-                         </tr>
-                    </tbody>
-                </table>
-           `
+// ADD quantity ( product to basket)
+function addQuantity(obj) {
+   if (obj._id in index) {
+       index[obj._id].quantity += 1;
+   } else {
+       index[obj._id] = obj;
+       obj.quantity = 1;
+       editedBasket.push(obj);
+   }
 
-           totalAllProd.innerHTML ="total:" +" "+(total+=localBasket[index].price)+ "€"+" "+"("+localBasket.length+")";
-          
-
-       });
 };
 
-display();
+
+
+/**********************************************************/
+function display(){ 
+
+
+   let itemsdisplay= document.getElementById("items");
+
+        //Structure tableau 
+        itemsdisplay.innerHTML =''
+
+        editedBasket.forEach((items,index)=>{ 
+        // console.log(editedBasket[index]);
+         itemsdisplay.innerHTML += `  
+
+         <table class="table">
+         <tbody>
+
+         <tr id= "itemsCart">
+         <td>${editedBasket[index].name}</td>
+         
+         <td id= "price">${editedBasket[index].price}</td>
+         <td><input  type="number" value=${editedBasket[index].quantity} id="quantite" onclick="ajouter()"></td>
+         <td id= "totalUnit"></td>
+         <td><button id="supprimer" onclick="suppression('${editedBasket[index]._id}')">SUPPRIMER</button></td>
+         </tr>
+
+         </tbody>
+         </table>
+         `
+        //Somme total et nombre total Item 
+        totalAllProd.innerHTML ="total:" +" "+(total+=editedBasket[index].price*editedBasket[index].quantity)+ "€"+" "+"("+localBasket.length+")";
+        //console.log(totalAllProd);
+
+      
+       });
+    };
+
+    display();
+
+/*********************************************/
+    function ajouter(){ 
+     
+  
+
+
+
+     let quantity= parseInt(document.getElementById("quantite").value);
+     let quantityUnit= editedBasket[index].quantity +=1;
+      
+
+  
+
+   };
+
+
+
+/**********************************************/
+ 
+ function suppression(id){
+      
+    //console.log("suppression  javascript shopping");
+    
+    let list= localBasket.filter(item => {
+      return item._id != id;
+    });
+
+   localBasket=list;
+   console.log(localBasket);
+   console.log(editedBasket);
+   localStorage.setItem('data', JSON.stringify(list));
+   location.reload();
+
+
+ };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
