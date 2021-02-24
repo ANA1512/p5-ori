@@ -218,34 +218,48 @@ td {
 }
 
 
-/*icone fonteawesome*/
+/*icone validation champs fonteawesome*/
 
-.icone{
+/*Mail*/
 
-	display: flex;
-	justify-content: flex-end;
-    
-}
-
-.iconeX{
+.iconeA{
 
 	display: flex;
 	justify-content: flex-end;
 	position:absolute;
-	transform: translateY(-90%);
- 	margin-right: 300%;
+	transform: translateY(10%);
+    margin-left: 55%;
+   
+
+ 
 
     
 }
+
+/*Mail confirmation*/
+.iconeB{
+
+	display: flex;
+	justify-content: flex-end;
+	position:absolute;
+	transform: translateY(-50%);
+ 	margin-left: 55%;
+    
+
+    
+}
+
+/*Position icône*/
  span{
 
  	position: absolute;
  	transform: translateY(-150%);
  	margin-right: 150%;
 
+
  }
 
-
+/* Exclamation erreur !*/
 .fa-exclamation{
 
 	color:red;
@@ -254,45 +268,53 @@ td {
 	
 }
 
-
+/* Signe de validation */
 
 .fa-check{ 
 
 	color:green;
 	font-size: 10px;
-
 	
 }
+
+/*Signe cercle champs vide*/
 
 .fa-times-circle{
 
 	color:blue;
+	
 }
 
  .icone1{
+   
     position:relative;
  	padding:2px;
  	margin:2px;
- 	display:none;
+    visibility: hidden;
  	
 
  }
 
 .icone2{
+	display: none;
     position:relative;
  	padding:2px;
  	margin:2px;
- 	display:none;
+ 	 visibility: hidden;
  	
  }
 
 .icone3{
+	display: none;
     position:relative;
  	padding:2px;
  	margin:2px;
- 	display:none;
+ 	 visibility: hidden;
+   
  	
  }
+
+ /*
 
 .icone4{
 	position:relative;
@@ -312,6 +334,6 @@ td {
 
 	}
 
-
+*/
 
 
