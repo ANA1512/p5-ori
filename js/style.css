@@ -1,0 +1,339 @@
+
+body{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+	min-height: 100%;
+	position: relative; 
+}
+
+
+nav{
+	background-color:#BDBDBD;
+	height: 90px;
+	display:flex;
+	justify-content: space-between;
+	align-items: center;
+	
+
+}
+
+.logo{
+	display:flex;
+	
+
+}
+
+.title{
+	 background: linear-gradient(#e66465, #9198e5);
+	-webkit-background-clip:text;
+	-webkit-text-fill-color:transparent;
+	font-size: 50px;
+	padding-left:20px;
+
+}
+
+/*
+h1{
+	margin:0;
+	color:black;
+	font-family: 'Permanent Marker', cursive;
+	letter-spacing: 3px;
+}
+*/
+/*
+'Carter One', cursive;*/
+
+.fa-cart-plus{
+	font-size: 20px;
+
+}
+
+.logo-hide{
+	visibility: hidden;
+}
+
+
+
+main{
+
+	min-height: 100%;
+	position: relative;
+
+}
+/*
+footer{
+	background-color: #BDBDBD;
+	position:fixed;
+	bottom:0;
+	height: 20px;
+	width: 100%;
+	padding-top: 20px;
+
+}
+*/
+
+img{
+	width: 100%;
+	height: auto; 
+	border-radius: 10%;
+
+
+}
+
+h2{
+	text-align: center;
+	font-family: 'Dosis', sans-serif;
+	color:#404040;
+}
+
+
+article{
+	
+	padding: 20px;
+	margin: 20px;
+	border-radius: 10%;
+	padding-bottom: 40px;
+	border:solid #e6e6ff 1px;
+}
+
+a{
+	text-decoration:none;
+	
+}
+
+/*prix*/
+
+#prix{
+	display: flex;
+	justify-content: left;
+	font-weight: bold;
+	font-family: 'Dosis', sans-serif;
+	letter-spacing: 2px;
+
+
+}
+
+
+
+ul{
+	list-style: none;
+}
+
+
+
+
+
+.description{
+	font-family: 'Dosis', sans-serif;
+	text-align:justify;
+
+
+}
+
+/*titre sur page produit*/
+
+.titre{
+	color:#7B1FA2;
+}
+
+.dropdown{
+
+    display: flex;
+    justify-content: center;
+    padding: 20px
+}
+
+/*page panier*/ 
+
+.cart-meuble{
+	display: flex;
+	justify-content: space-between;
+}
+
+.furniture{
+	width: 100px;
+	height:100px;
+}
+
+.quantite{
+	width:20px;
+	height:15px;
+	border-radius: 20%;
+}
+
+.remove{
+	display:inline-block;
+}
+
+
+#button-add .btn .btn-secondary {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+  }
+
+button>a{
+
+	color:white;
+}
+
+
+
+/*input prix -panier*/
+
+input{
+
+	width: 50px;
+}
+
+
+/* increment and decrement*/
+
+#button{
+
+	width: 150px;
+}
+
+td {
+	padding= 0px;
+    margin=0px;
+
+}
+
+
+/*input formulaire*/
+
+.box{
+
+	width: 600px;
+}
+
+/* bouton envoyé*/
+
+.btn{
+
+	width: 70px;
+}
+
+
+/*icone validation champs fonteawesome*/
+
+/*Mail*/
+
+.iconeA{
+
+	display: flex;
+	justify-content: flex-end;
+	position:absolute;
+	transform: translateY(10%);
+    margin-left: 55%;
+   
+
+ 
+
+    
+}
+
+/*Mail confirmation*/
+.iconeB{
+
+	display: flex;
+	justify-content: flex-end;
+	position:absolute;
+	transform: translateY(-50%);
+ 	margin-left: 55%;
+    
+
+    
+}
+
+/*Position icône*/
+ span{
+
+ 	position: absolute;
+ 	transform: translateY(-150%);
+ 	margin-right: 150%;
+
+
+ }
+
+/* Exclamation erreur !*/
+.fa-exclamation{
+
+	color:red;
+	font-size: 12px;
+
+	
+}
+
+/* Signe de validation */
+
+.fa-check{ 
+
+	color:green;
+	font-size: 10px;
+	
+}
+
+/*Signe cercle champs vide*/
+
+.fa-times-circle{
+
+	color:blue;
+	
+}
+
+ .icone1{
+   
+    position:relative;
+ 	padding:2px;
+ 	margin:2px;
+    visibility: hidden;
+ 	
+
+ }
+
+.icone2{
+	display: none;
+    position:relative;
+ 	padding:2px;
+ 	margin:2px;
+ 	 visibility: hidden;
+ 	
+ }
+
+.icone3{
+	display: none;
+    position:relative;
+ 	padding:2px;
+ 	margin:2px;
+ 	 visibility: hidden;
+   
+ 	
+ }
+
+ /*
+
+.icone4{
+	position:relative;
+	display:none;
+}
+
+.icone5{
+
+	position:relative;
+	display:none;
+}
+
+
+.icone6{
+     position:relative;
+	display:none;
+
+	}
+
+*/
+
+
