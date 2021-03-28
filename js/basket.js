@@ -30,7 +30,9 @@ localBasket.forEach(element => {
 
 });
 // New basket content
+
 console.log('editedBasket', editedBasket);
+
 
 // ADD quantity ( product to basket)
 function addQuantity(obj) {
@@ -44,9 +46,7 @@ function addQuantity(obj) {
 
 };
 
-
-
-/**********************************************************/
+/***********************STRUCTURE PAGE***********************************/
 function display(){ 
 
 
@@ -60,36 +60,37 @@ function display(){
 
         
          itemsdisplay.innerHTML += `  
-
+         
          <table class="table">
          <tbody>
 
          <tr id= "itemsCart">
          <td>${editedBasket[index].name}</td>
-         <td id= "price"  type="text" >${editedBasket[index].price}</td>
+         <td><img src=${editedBasket[index].imageUrl} class="cartpict">${editedBasket[index].lenses[index]}</td>
+         <td id= "price"  type="number" >${editedBasket[index].price}€</td>
 
         
-         <td><input  type="number" value='${editedBasket[index].quantity}' id="quantite" onclick="ajout()"></td>
+         <td><input  type="number" value='${editedBasket[index].quantity}' id="quantite" onclick="ajout(${editedBasket[index]._id})"></td>
          
 
          <td id= "totalUnit"></td>
-         <td><button id="supprimer" onclick="suppression('${editedBasket[index]._id}')">SUPPRIMER</button></td>
+         <td><div id="supprimer" onclick="suppression('${editedBasket[index]._id}')"><i class="far fa-trash-alt"></i></div></td>
          </tr>
+
 
          </tbody>
          </table>
+  
+
          `
         //Somme total et nombre total Item 
         totalAllProd.innerHTML ="total:" +" "+(total+=editedBasket[index].price*editedBasket[index].quantity)+ "€"+" "+"("+localBasket.length+")";
        // console.log(totalAllProd);
         
-
-                                      
-
-       
-
       
        });
+
+
     };
 
     display();
@@ -97,26 +98,34 @@ function display(){
 /********************ADD QUANTITY*************************/
 
 function ajout(){
+    
 
    
-   let input= document.getElementById("quantite");
+   let input= document.getElementById("quantite"); 
  
-   let add= input.value = parseInt(input.value);
-    //console.log(add);
+   let add= input.value = parseInt(input.value);  
+   // console.log(add);
 
-
-
-      let pos = editedBasket[0].quantity;
+    let pos = editedBasket[0].quantity; 
       
-      console.log(pos);
-      
-      editedBasket.splice(pos,1, add);
+      console.log(pos); 
+      editedBasket.splice(pos,1, add); 
 
-    
- 
+
+      console.log(editedBasket[0].quantity = add);
+
+
+
+
 
 };
-
+/***************Total Unitaire**********************/
+/*let input= document.getElementById("quantite"); 
+let add= input.value = parseInt(input.value);
+let price= parseInt(document.getElementById("price"));
+let result =price*add;
+console.log(price);
+console.log(add);*/
 
 
 
@@ -139,8 +148,26 @@ function ajout(){
 
  };
 
+ /****PANIER VIDE ( editedbasket et localstorage)*******/
 
-/*************************FORMS******************/
+if(editedBasket.length==0 && localBasket.length==0 ){
+    
+    let nothing= document.getElementById("items");
+    let panierVide = document.createElement("p");
+    panierVide.innerHTML = "VOTRE PANIER EST VIDE"; 
+    nothing.appendChild(panierVide);
+    panierVide.style.color="#ff33cc";
+    console.log( "Votre panier est vide");
+
+    let removeForm= document.getElementById("container");
+    let titleForm= document.getElementById("formulaire");
+    titleForm.style.visibility="hidden";
+    removeForm.style.visibility="hidden";
+    localStorage.clear();
+    
+ };
+
+/*************************FORMS********************************************************/
 
 let erreur = document.getElementById("erreur");
 let inputs = document.getElementsByTagName("input");
@@ -157,23 +184,21 @@ let passError= document.getElementById("passError");
 
 
 
-/********variable texte erreur ********/
+/********variable texte erreur *******/
 let note= document.getElementById("note");
 let text= document.getElementById("text");
 let text1= document.getElementById("text-1");
-let test= document.getElementById("test");
+let test1= document.getElementById("test");
 let one= document.getElementById("one");
 let two= document.getElementById("two");
 /***** variable icone *****/
 
+const iconeA= document.querySelector(".iconeA");
 const icone1= document.querySelector(".icone1"); // ! invalide
 const icone2= document.querySelector(".icone2"); //  v de valide
 const icone3= document.querySelector(".icone3"); //x champs vide
 
 
-const icone4= document.querySelector(".icone4"); // ! invalide
-const icone5= document.querySelector(".icone5"); //  v de valide
-const icone6= document.querySelector(".icone6"); //x champs vide
 /********* OBJET  REGEXP *******/
 
 // validation mail
@@ -184,99 +209,56 @@ const emailRegExp ='^[ a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$';
 let infoPerso= document.createElement("h3");
 let contact= document.getElementById("formulaire");
 
+infoPerso.innerHTML=" Formulaire";
+contact.appendChild(infoPerso);
 
 
-
-
-/**********Vérification du champs mail apres submit***************/
-
-document.forms["inscription"].addEventListener("submit", function(e){
-    
-  e.preventDefault();
-  let erreur;
-  let inputs= this;
-
-    
-  if(inputs["mail"].value != emailRegExp){
-       text1.innerHTML = "Veuillez entrer votre email";
-       text1.style.color="red";
-
-    
-     }
-
-
-
-/* Vérification de tous les champs*/
-  
-  for (let i=0; i<inputs.length; i++){
-
-      
-
-        if(!inputs[i].value){
-          erreur= "Veuillez remplir tous les champs";
-         // button.style.visibility="hidden"; 
-        }
-    }
-
-     if(erreur){
-        
-    e.preventDefault();
-    document.getElementById("erreur").innerHTML = "Votre formulaire comporte des erreurs";
-  
-
-    }else{
-
-        alert('formulaire envoyé!'); 
-
-      }
-
-  
-});
-
-
-/****************Vérification du champs mail uniquement*******/
+/****************Test de Vérification du champs mail uniquement*******/
 
 function check(){
 
         // si mail est ok
          if(mail.value.match(emailRegExp)){
-
-          icone1.style.display="none";
-          icone2.style.display="block";
+          
           one.textContent="email ok"; // mail valid
           one.style.color="lightgreen";
-          test.style.display="none"; // mail invalid disparait
-          //two.style.visibility="hidden"; // remplir champs si vide disparaît
-          icone3.style.display="none";
+          
+          icone2.style.visibility="visible"; //valid
+          icone1.style.visibility="hidden"; //invalid !
+         
+          test.style.visibility="hidden"; // mail invalid disparait
+          two.style.visibility="hidden"; // remplir champs si vide disparaît
+          icone3.style.visibility="hidden";
+          text1.style.visibility="hidden";
+
          
           
 
         // Si mail vide 
           
         }else if(mail.value ==''){
-
-         //console.log("le mail est vide");
          
-         icone3.style.display="block"; //x
+         two.textContent="Veuillez remplir le champs";
+         button.style.visibility="hidden";
+         two.style.color="blue"; // couleur du message 
+         
+         icone3.style.visibility="visible"; //x
          icone1.style.visibility="hidden"; // ! disparait
          one.style.visibility="hidden";
-         two.textContent="Veuillez remplir le champs";
-         two.style.color="blue"; // couleur du message
-        
+           
        }
 
         //si mail est faux
 
          if(!mail.value.match(emailRegExp)){ 
-
-          icone1.style.display="block";//!
-          icone2.style.display="none"; // v
-          test.textContent= "Votre email est incorrecte";
-          test.style.color="purple";
-
- 
+          
+          test1.textContent= "Votre email est incorrecte";
+          test1.style.color="purple";
+          icone1.style.visibility="visible";//!
+          icone2.style.visibility="hidden"; // v
+          icone3.style.visibility= "hidden";
+          button.style.visibility="hidden"; 
         }
-
 
 }
 
@@ -284,40 +266,165 @@ function check(){
 
 function ok(){
 
-    if(inputs["mail"].value === confirmation.value){
 
-      //console.log("perfect");
+    //mail de confirmation ok
+    if(inputs["mail"].value === confirmation.value){
       msg.textContent= "votre mail de confirmation est correcte";
       msg.style.color="lightgreen";
-      icone1.style.display="none";
-      icone2.style.display="block";
-      icone3.style.display="none";
-
-
+      icone2.style.visibility="visible"; // v valide ok
+      button.style.visibility="visible"; 
+      icone1.style.visibility="hidden";//!
+      icone3.style.visibility="hidden";//x
+      
+    //mail de confirmation erreur
     }else if(inputs["mail"].value != confirmation.value){
       console.log("erreur mail");
       msg.textContent=" votre mail de confirmation est incorrecte";
       msg.style.color="red";
-      icone1.style.display="block";
-      icone2.style.display="none";
-      icone3.style.display="none";
+      icone1.style.visibility="visible"; //! erreur 
+      icone2.style.visibility="hidden";
+      icone3.style.visibility="hidden";
+      button.style.visibility="hidden"; 
 
     }
     
+    //mail de confirmation vide
     if(mail.value ==''){
 
-       msg.textContent="vous devez remplir le champs mail précédent";
-       msg.style.color="orange";
-      icone1.style.display="none";
-      icone2.style.display="none";
-      icone6.style.display="block";
+      msg.textContent="vous devez remplir le champs mail précédent";
+      msg.style.color="orange";
+      icone3.style.visibility="visible";// x croix 
+      icone1.style.visibility="hidden";
+      icone2.style.visibility="hidden";
+      button.style.visibility="hidden"; 
       
     }
-  
-
-
   }
 
   /****************FIN CHAMPS MAIL VALIDATION**************/
+
+/**********Vérification du champs mail apres submit*************/
+
+document.forms["inscription"].addEventListener("submit", function(e){
+    
+  e.preventDefault();
+  let erreur;
+  let inputs= this;
+
+  if(inputs["mail"].value != emailRegExp){
+       text1.innerHTML = "ERROR";
+       text1.style.color="red";
+
+     }
+
+/* Vérification de tous les champs*/
+  
+  for (let i=0; i<inputs.length; i++){
+
+    if(!inputs[i].value){
+          erreur= "Veuillez remplir tous les champs";
+          button.style.visibility="hidden"; 
+        }
+
+    }
+
+     if(erreur){
+        
+        e.preventDefault();
+        let errMsg= document.getElementById("erreur");
+         errMsg.textContent = "Votre formulaire comporte des erreurs";
+         errMsg.style.color= "yellow";
+        
+  
+    }else{
+        
+        //erreur.style.visibility="hidden";
+        button.style.visibility="visible";
+    }
+         
+ /* Enregistrement des données du formulaire dans la session storage*/
+        
+        // récuperer les inputs et les mettre dans le constructor
+
+        let inputName= document.getElementById("nom").value;
+        let inputFirstName = document.getElementById("prenom").value;
+       // let inputTel = document.getElementById("telephone").value;
+        let inputRue = document.getElementById("rue").value;
+       // let inputCode= document.getElementById("code").value;
+        let inputVille= document.getElementById("ville").value; 
+       // let inputPays= document.getElementById("pays").value;
+        let inputMail = document.getElementById("mail").value; 
+       // let inputConfirMail = document.getElementById("mail-confirm").value;
+
+// Récuperation des id pour les produits du panier
+        let products=[];
+        const productSelected=[];
+
+        for(i=0; i<editedBasket.length; i++){
+        
+        productSelected.push(editedBasket[i]._id);
+
+
+        }
+
+        console.log(productSelected);
+
+// Constructor pour récupérer les infos contact et produits du formulaire
+        order={
+
+            contact: {
+              firstName:inputFirstName,
+              lastName: inputName,
+              address:inputRue ,
+              city: inputVille,
+              email: inputMail
+            },
+            products: productSelected
+
+        }
+       
+         console.log('infoContact',order);
+      
+/****************ENVOI DU FORMULAIRE A L API**************************/
+ 
+       fetch('http://localhost:3000/api/cameras/order',{
+
+            method: "POST",
+
+            body:JSON.stringify(order),
+
+            headers: {"Content-Type":"application/json"}
+
+       })
+
+       .then(response=> response.json())
+       .then(json=> console.log(json));
+         
+// sauvegarder les données dans une sessionStorage
+        
+        localStorage.setItem('infoProduit', productSelected); 
+          
+});
+
+// Commande  envoyée 
+
+        //console.log("Votre commande a été validée");
+
+/********************PANIER VALIDE- REDIRECTION PAGE CONFIRMATION******/
+
+ //alert( "votre commande est validée!");
+ //location.href = "confirmation_page.html"
+
+
+
+
+
+
+
+
+
+
+
+
 
 
