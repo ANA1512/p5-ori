@@ -1,42 +1,45 @@
 
-// total all page
+/******************BASKET PAGE*********************/
+
+//Variables for the BASKET
+
+//All products selected and store
+let localBasket=  JSON.parse(localStorage.getItem('data'));
+
+//Initialization of a new basket including quantity
+let editedBasket = [];   
+let index = {};
+
+// Total for all products
 let totalAllProd = document.getElementById("total");
 let total=[];
 total =0;
 
-//total unit price
-let totalUnit= document.getElementById("totalUnit");
-
-
-// suppress buton
+// Suppress item - trash icone (page structure)
 let buttonSup = document.getElementById("supprimer");
 let itemsCart =document.getElementById("itemsCart");
 
 /*********************************************************/
-let localBasket=  JSON.parse(localStorage.getItem('data'));
-//console.log('contenu panier', localBasket);
 
+// Test basket content and store in the localStorage
 console.log('localBasket', localBasket);
 
+// New basket content
+console.log('editedBasket', editedBasket);
 
+/********************ADD QUANTITY*************************/
 
-// init new basket
-let editedBasket = []   
-let index = {};
 
 //ADD quantity each click on product
 localBasket.forEach(element => {
  addQuantity(element);
 
 });
-// New basket content
 
-console.log('editedBasket', editedBasket);
-
-
-// ADD quantity ( product to basket)
+// ADD quantity (in editedBasket)
 function addQuantity(obj) {
-   if (obj._id in index) {
+    
+    if (obj._id in index) {
        index[obj._id].quantity += 1;
    } else {
        index[obj._id] = obj;
@@ -46,109 +49,24 @@ function addQuantity(obj) {
 
 };
 
-/***********************STRUCTURE PAGE***********************************/
-function display(){ 
-
-
-   let itemsdisplay= document.getElementById("items");
-
-        //Structure tableau 
-        itemsdisplay.innerHTML =''
-
-        editedBasket.forEach((items,index)=>{ 
-        // console.log(editedBasket[index]);
-
-        
-         itemsdisplay.innerHTML += `  
-         
-         <table class="table">
-         <tbody>
-
-         <tr id= "itemsCart">
-         <td>${editedBasket[index].name}</td>
-         <td><img src=${editedBasket[index].imageUrl} class="cartpict">${editedBasket[index].lenses[index]}</td>
-         <td id= "price"  type="number" >${editedBasket[index].price}€</td>
-
-        
-         <td><input  type="number" value='${editedBasket[index].quantity}' id="quantite" onclick="ajout(${editedBasket[index]._id})"></td>
-         
-
-         <td id= "totalUnit"></td>
-         <td><div id="supprimer" onclick="suppression('${editedBasket[index]._id}')"><i class="far fa-trash-alt"></i></div></td>
-         </tr>
-
-
-         </tbody>
-         </table>
-  
-
-         `
-        //Somme total et nombre total Item 
-        totalAllProd.innerHTML ="total:" +" "+(total+=editedBasket[index].price*editedBasket[index].quantity)+ "€"+" "+"("+localBasket.length+")";
-       // console.log(totalAllProd);
-        
-      
-       });
-
-
-    };
-
-    display();
-
-/********************ADD QUANTITY*************************/
-
-function ajout(){
-    
-
-   
-   let input= document.getElementById("quantite"); 
- 
-   let add= input.value = parseInt(input.value);  
-   // console.log(add);
-
-    let pos = editedBasket[0].quantity; 
-      
-      console.log(pos); 
-      editedBasket.splice(pos,1, add); 
-
-
-      console.log(editedBasket[0].quantity = add);
-
-
-
-
-
-};
-/***************Total Unitaire**********************/
-/*let input= document.getElementById("quantite"); 
-let add= input.value = parseInt(input.value);
-let price= parseInt(document.getElementById("price"));
-let result =price*add;
-console.log(price);
-console.log(add);*/
-
-
-
-/****************DELETE ******************************/
+/****************DELETE ONE PRODUCT (icone) ******************************/
  
  function suppression(id){
-      
-    
-    
+         
     let list= localBasket.filter(item => {
       return item._id != id;
     });
 
-   localBasket=list;
-   console.log(localBasket);
-   console.log(editedBasket);
-   localStorage.setItem('data', JSON.stringify(list));
-   location.reload();
+     localBasket=list;
+     console.log(localBasket);
+     console.log(editedBasket);
+     localStorage.setItem('data', JSON.stringify(list));
+     location.reload();
 
 
  };
 
- /****PANIER VIDE ( editedbasket et localstorage)*******/
+ /****PANIER VIDE ( editedbasket et localStorage)*******/
 
 if(editedBasket.length==0 && localBasket.length==0 ){
     
@@ -167,8 +85,49 @@ if(editedBasket.length==0 && localBasket.length==0 ){
     
  };
 
+/***********************PAGE STRUCTURE***********************************/
+function display(){ 
+
+   let itemsdisplay= document.getElementById("items");
+
+        //Table structure 
+        itemsdisplay.innerHTML =''
+        
+        //Loop forEach for Item in new Basket
+        editedBasket.forEach((items,index)=>{ 
+        
+        //Display all products in HTML page
+         itemsdisplay.innerHTML += `  
+         
+         <table class="table">
+         <tbody>
+
+         <tr id= "itemsCart">
+         <td>${editedBasket[index].name}</td>
+         <td><img src=${editedBasket[index].imageUrl} class="cartpict">${editedBasket[index].lenses[index]}</td>
+         <td id= "price"  type="number" >${editedBasket[index].price}€</td>
+
+         <td><input  type="number" value='${editedBasket[index].quantity}' id="quantite" onclick="ajout(${editedBasket[index]._id})"></td>
+         
+         <td><div id="supprimer" onclick="suppression('${editedBasket[index]._id}')"><i class="far fa-trash-alt"></i></div></td>
+         </tr>
+         </tbody>
+         </table>
+         `
+        //Total (sum of all products)
+        totalAllProd.innerHTML ="total:" +" "+(total+=editedBasket[index].price*editedBasket[index].quantity)+ "€"+" "+"("+localBasket.length+")";     
+       });
+    };
+
+    display();
+
+
+
+
+
 /*************************FORMS********************************************************/
 
+//variables 
 let erreur = document.getElementById("erreur");
 let inputs = document.getElementsByTagName("input");
 let nom = document. getElementById("nom"); 
@@ -334,8 +293,6 @@ document.forms["inscription"].addEventListener("submit", function(e){
         let errMsg= document.getElementById("erreur");
          errMsg.textContent = "Votre formulaire comporte des erreurs";
          errMsg.style.color= "yellow";
-        
-  
     }else{
         
         //erreur.style.visibility="hidden";
@@ -363,8 +320,6 @@ document.forms["inscription"].addEventListener("submit", function(e){
         for(i=0; i<editedBasket.length; i++){
         
         productSelected.push(editedBasket[i]._id);
-
-
         }
 
         console.log(productSelected);
@@ -398,22 +353,26 @@ document.forms["inscription"].addEventListener("submit", function(e){
        })
 
        .then(response=> response.json())
-       .then(json=> console.log(json));
+        //save info and orderId create in localStorage
+       .then(json=> localStorage.setItem('infoProduit', JSON.stringify(json)));
+
+        if(editedBasket !=null){
+
+          alert( "Veuillez confirmer votre commande");
+          location.href = "confirmation_page.html";
+        }else{
+          alert ("votre panier n'est pas valide");
+        }
          
-// sauvegarder les données dans une sessionStorage
-        
-        localStorage.setItem('infoProduit', productSelected); 
-          
 });
 
-// Commande  envoyée 
 
-        //console.log("Votre commande a été validée");
 
-/********************PANIER VALIDE- REDIRECTION PAGE CONFIRMATION******/
+       
 
- //alert( "votre commande est validée!");
- //location.href = "confirmation_page.html"
+
+
+
 
 
 
